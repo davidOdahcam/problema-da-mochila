@@ -9,18 +9,29 @@ const itens = [
   { nome: "Ativo 5", peso: 7, valor: 12 },
 ];
 
-const calcularFitness = (itens) => {
+const calcularFitness = (individuos) => {
   let valorTotal = 0;
   let pesoTotal = 0;
 
-  itens.forEach((gene, i) => {
+  individuos.forEach((gene, i) => {
     if (gene === 1) {
-      valorTotal += itens[i].valor;
-      pesoTotal += itens[i].peso;
+      valorTotal += individuos[i].valor;
+      pesoTotal += individuos[i].peso;
     }
   });
 
   return pesoTotal > capacidadeMaxima ? 0 : valorTotal;
+};
+
+const selecao = (populacao) => {
+  const individuosAvaliados = populacao.map((individuo) => ({
+    individuo,
+    fitness: calcularFitness(individuo),
+  }));
+
+  individuosAvaliados.sort((a, b) => b.fitness - a.fitness);
+
+  return individuosAvaliados.slice(0, tamanhoPopulacao);
 };
 
 const executarAlgoritmoGenetico = () => {
