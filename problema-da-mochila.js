@@ -39,7 +39,12 @@ const executarAlgoritmoGenetico = () => {
     Array.from({ length: itens.length }, () => (Math.random() < 0.5 ? 0 : 1))
   );
 
-  console.log(populacao);
+  const melhoresIndividuos = selecao(populacao);
+  let melhorIndividuo = melhoresIndividuos[0].individuo;
+
+  return melhorIndividuo;
 };
 
-executarAlgoritmoGenetico();
+const melhorSolucao = executarAlgoritmoGenetico();
+
+console.log("Melhor solução encontrada: ", melhorSolucao);
