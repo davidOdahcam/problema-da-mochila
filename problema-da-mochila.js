@@ -1,5 +1,6 @@
 const capacidadeMaxima = 20;
 const tamanhoPopulacao = 10;
+let geracoes = 100;
 
 const itens = [
   { nome: "Ativo 1", peso: 6, valor: 8 },
@@ -45,25 +46,32 @@ const executarAlgoritmoGenetico = () => {
     Array.from({ length: itens.length }, () => (Math.random() < 0.5 ? 0 : 1))
   );
 
-  const novaPopulacao = [];
+  let melhorIndividuo;
 
-  const melhoresIndividuos = selecao(populacao);
-  let melhorIndividuo = melhoresIndividuos[0].individuo;
+  while (geracoes > 0) {
+    const novaPopulacao = [];
 
-  for (let i = 0; i < tamanhoPopulacao; i++) {
-    const pai_1 =
-      melhoresIndividuos[
-        Math.floor(Math.random() * melhoresIndividuos.length)
-      ].individuo;
+    const melhoresIndividuos = selecao(populacao);
+    melhorIndividuo = melhoresIndividuos[0].individuo;
 
-    const pai_2 =
-      melhoresIndividuos[
-        Math.floor(Math.random() * melhoresIndividuos.length)
-      ].individuo;
+    for (let i = 0; i < tamanhoPopulacao; i++) {
+        const pai_1 =
+        melhoresIndividuos[
+            Math.floor(Math.random() * melhoresIndividuos.length)
+        ].individuo;
 
-    let filho = cruzamento(pai_1, pai_2);
+        const pai_2 =
+        melhoresIndividuos[
+            Math.floor(Math.random() * melhoresIndividuos.length)
+        ].individuo;
 
-    novaPopulacao.push(filho);
+        let filho = cruzamento(pai_1, pai_2);
+
+        novaPopulacao.push(filho);
+    }
+    
+    populacao = novaPopulacao;
+    geracoes--;
   }
 
   return melhorIndividuo;
