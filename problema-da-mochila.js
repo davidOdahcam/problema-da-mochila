@@ -4,11 +4,11 @@ const taxaMutacao = 0.1;
 let geracoes = 100;
 
 const itens = [
-  { nome: "Ativo 1", peso: 6, valor: 8 },
+  { nome: "Ativo 1", peso: 6,  valor: 8 },
   { nome: "Ativo 2", peso: 10, valor: 15 },
-  { nome: "Ativo 3", peso: 3, valor: 5 },
-  { nome: "Ativo 4", peso: 1, valor: 3 },
-  { nome: "Ativo 5", peso: 7, valor: 12 },
+  { nome: "Ativo 3", peso: 3,  valor: 5 },
+  { nome: "Ativo 4", peso: 1,  valor: 3 },
+  { nome: "Ativo 5", peso: 7,  valor: 12 },
 ];
 
 const calcularFitness = (individuos) => {
@@ -50,6 +50,18 @@ const mutacao = (individuo) => {
   });
 };
 
+const interpretarMelhorIndividuo = (melhorIndividuo, itensDisponiveis)  => {
+  let itensSelecionados = [];
+
+  for (let i = 0; i < melhorIndividuo.length; i++) {
+    if (melhorIndividuo[i] === 1) {
+      itensSelecionados.push(itensDisponiveis[i].nome);
+    }
+  }
+
+  return itensSelecionados;
+}
+
 const executarAlgoritmoGenetico = () => {
   let populacao = Array.from({ length: tamanhoPopulacao }, () =>
     Array.from({ length: itens.length }, () => (Math.random() < 0.5 ? 0 : 1))
@@ -90,3 +102,4 @@ const executarAlgoritmoGenetico = () => {
 const melhorSolucao = executarAlgoritmoGenetico();
 
 console.log("Melhor solução encontrada: ", melhorSolucao);
+console.log("Nomes dos ativos selecionados: ", interpretarMelhorIndividuo(melhorSolucao, itens));
