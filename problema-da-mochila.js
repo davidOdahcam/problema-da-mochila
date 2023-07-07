@@ -1,5 +1,6 @@
 const capacidadeMaxima = 20;
 const tamanhoPopulacao = 10;
+const taxaMutacao = 0.1;
 let geracoes = 100;
 
 const itens = [
@@ -41,6 +42,14 @@ const cruzamento = (pai_1, pai_2) => {
   return filho;
 };
 
+const mutacao = (individuo) => {
+  individuo.forEach((gene, index) => {
+    if (Math.random() < taxaMutacao) {
+      individuo[index] = gene === 1 ? 0 : 1;
+    }
+  });
+};
+
 const executarAlgoritmoGenetico = () => {
   let populacao = Array.from({ length: tamanhoPopulacao }, () =>
     Array.from({ length: itens.length }, () => (Math.random() < 0.5 ? 0 : 1))
@@ -55,21 +64,22 @@ const executarAlgoritmoGenetico = () => {
     melhorIndividuo = melhoresIndividuos[0].individuo;
 
     for (let i = 0; i < tamanhoPopulacao; i++) {
-        const pai_1 =
+      const pai_1 =
         melhoresIndividuos[
-            Math.floor(Math.random() * melhoresIndividuos.length)
+          Math.floor(Math.random() * melhoresIndividuos.length)
         ].individuo;
 
-        const pai_2 =
+      const pai_2 =
         melhoresIndividuos[
-            Math.floor(Math.random() * melhoresIndividuos.length)
+          Math.floor(Math.random() * melhoresIndividuos.length)
         ].individuo;
 
-        let filho = cruzamento(pai_1, pai_2);
+      let filho = cruzamento(pai_1, pai_2);
+      mutacao(filho);
 
-        novaPopulacao.push(filho);
+      novaPopulacao.push(filho);
     }
-    
+
     populacao = novaPopulacao;
     geracoes--;
   }
