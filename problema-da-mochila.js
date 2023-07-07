@@ -34,6 +34,12 @@ const selecao = (populacao) => {
   return individuosAvaliados.slice(0, tamanhoPopulacao);
 };
 
+const cruzamento = (pai_1, pai_2) => {
+  const pontoCorte = Math.floor(Math.random() * pai_1.length);
+  const filho = [...pai_1.slice(0, pontoCorte), ...pai_2.slice(pontoCorte)];
+  return filho;
+};
+
 const executarAlgoritmoGenetico = () => {
   let populacao = Array.from({ length: tamanhoPopulacao }, () =>
     Array.from({ length: itens.length }, () => (Math.random() < 0.5 ? 0 : 1))
