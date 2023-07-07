@@ -48,6 +48,21 @@ const executarAlgoritmoGenetico = () => {
   const melhoresIndividuos = selecao(populacao);
   let melhorIndividuo = melhoresIndividuos[0].individuo;
 
+  for (let i = 0; i < tamanhoPopulacao; i++) {
+    const pai_1 =
+      melhoresIndividuos[
+        Math.floor(Math.random() * melhoresIndividuos.length)
+      ].individuo;
+
+    const pai_2 =
+      melhoresIndividuos[
+        Math.floor(Math.random() * melhoresIndividuos.length)
+      ].individuo;
+
+    let filho = cruzamento(pai_1, pai_2);
+
+    novaPopulacao.push(filho);
+  }
   return melhorIndividuo;
 };
 
