@@ -45,6 +45,8 @@ const executarAlgoritmoGenetico = () => {
     Array.from({ length: itens.length }, () => (Math.random() < 0.5 ? 0 : 1))
   );
 
+  const novaPopulacao = [];
+
   const melhoresIndividuos = selecao(populacao);
   let melhorIndividuo = melhoresIndividuos[0].individuo;
 
@@ -63,6 +65,7 @@ const executarAlgoritmoGenetico = () => {
 
     novaPopulacao.push(filho);
   }
+
   return melhorIndividuo;
 };
 
